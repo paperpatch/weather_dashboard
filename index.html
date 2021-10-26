@@ -63,36 +63,49 @@
       </div>
       
       <div class="row">
+        <!-- Temperature Card -->
         <div class="col-3">
           <div class="card">
             <h4 class="card-body align-items-center">
               Temp
             </h4>
-            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium perferendis beatae enim dolorem dolorum error, rem et illo doloremque ut velit obcaecati natus a doloribus temporibus tempore minus totam optio.</div>
+            <div class="row">
+              <div class="col-3"><i class="bi bi-thermometer-high"></i></div>
+              <div class="col-5">Feels Like: 
+                <div id="temp-feels"></div>
+              </div>
+              <div class="col-4">Range:
+                <div id="tempMax"></div>
+                <div id="tempMin"></div>
+              </div> 
+            </div>
           </div>
         </div>
+        <!-- Wind Card -->
         <div class="col-3">
           <div class="card">
             <h4 class="card-body align-items-center">
-              Wind
+              Wind Status
             </h4>
-            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium perferendis beatae enim dolorem dolorum error, rem et illo doloremque ut velit obcaecati natus a doloribus temporibus tempore minus totam optio.</div>
+
           </div>
         </div>
+        <!-- Humidity Card -->
         <div class="col-3">
           <div class="card">
             <h4 class="card-body align-items-center">
               Humidity
             </h4>
-            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium perferendis beatae enim dolorem dolorum error, rem et illo doloremque ut velit obcaecati natus a doloribus temporibus tempore minus totam optio.</div>
+            <div></div>
           </div>
         </div>
+        <!-- UV Card -->
         <div class="col-3">
           <div class="card">
             <h4 class="card-body align-items-center">
               UV Index
             </h4>
-            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium perferendis beatae enim dolorem dolorum error, rem et illo doloremque ut velit obcaecati natus a doloribus temporibus tempore minus totam optio.</div>
+            <div></div>
           </div>
         </div>
       </div>
@@ -139,7 +152,10 @@
     </div>
   </main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>

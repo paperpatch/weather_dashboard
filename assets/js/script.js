@@ -6,7 +6,9 @@ var timeEl = document.querySelector("#current-time");
 var tempEl = document.querySelector("#current-temp");
 var tempMaxMinEl = document.querySelector("#current-maxminTemp");
 var statusEl = document.querySelector("#current-status")
-var weatherPicEl = document.querySelector("#current-picture");
+var tempCardFeels = document.querySelector("#temp-feels");
+var tempCardMax = document.querySelector("#tempMax");
+var tempCardMin = document.querySelector("#tempMin");
 
 
 /* City Search Section */
@@ -23,7 +25,11 @@ var formSubmitHandler = function(event) {
     // clear old content
     locationEl.value = "";
     timeEl.value = "";
-    // Temp.value/content = "";
+    timeEl.value = "";
+    tempEl.value = "";
+    tempMaxMinEl.value = "";
+    statusEl.value = "";
+    weatherPicEl = "";
     // Wind.value/content = "";
     // Humidity.value/content = "";
     // UVIndex.value/content = "";
@@ -70,35 +76,44 @@ var displayWeather = function(data) {
   let currentWeather = data.weather[0].main
   statusEl.append(currentWeather);
 
+  // Big Weather Pictures ICON
   let currentWeatherID = parseInt(data.weather[0].id);
+  console.log(currentWeatherID);
 
   if (currentWeatherID >= 200 && currentWeatherID <= 232 ) {
     // Thunderstorm
-    weatherPicEl.classList.add("bi", "bi-cloud-lightning-rain");
+    $("#current-picture").addClass("bi bi-cloud-lightning-rain");
   } else if (currentWeatherID >= 300 && currentWeatherID <= 321) {
     // Drizzle
-    weatherPicEl.classList.add("bi", "bi-cloud-drizzle");
+    $("#current-picture").addClass("bi bi-cloud-drizzle");
   } else if (currentWeatherID >= 500 && currentWeatherID <= 531) {
     // Rain
-    weatherPicEl.classList.add("bi", "bi-cloud-rain-heavy");
+    $("#current-picture").addClass("bi bi-cloud-rain-heavy");
   } else if (currentWeatherID >= 600 && currentWeatherID <= 622) {
     // Snow
-    weatherPicEl.classList.add("bi", "bi-cloud-snow");
+    $("#current-picture").addClass("bi bi-cloud-snow");
   } else if (currentWeatherID >= 701 && currentWeatherID <= 781) {
     // Other - Mist, Smoke, Haze, Dust, Fog, Ash, Squall, Tornado
-    weatherPicEl.classList.add("bi", "bi-wind");
+    $("#current-picture").addClass("bi bi-wind");
   } else if (currentWeatherID === 800) {
     // Clear
-    weatherPicEl.classList.add("bi", "bi-sun");
+    $("#current-picture").addClass("bi bi-sun");
   } else {
     // Cloudy
-    weatherPicEl.classList.add("bi", "bi-cloudy");
+    $("#current-picture").addClass("bi bi-cloudy");
   }
 
   // Current Max/Min Temp
   let currentMaxTemp = convertTempFahrenheit(parseInt(data.main.temp_max));
   let currentMinTemp = convertTempFahrenheit(parseInt(data.main.temp_min));
   tempMaxMinEl.append(currentMaxTemp + '° /' + currentMinTemp + '°');
+
+
+  // Temperature Card
+  let tempFeels = convertTempFahrenheit(parseInt(data.main.feels_like));
+  tempCardFeels.append(tempFeels);
+  tempCardMax.append(currentMaxTemp);
+  tempCardMin.append(currentMinTemp);
 }
 
 var convertTempFahrenheit = function(kelvin) {
