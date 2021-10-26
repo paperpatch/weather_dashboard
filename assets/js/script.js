@@ -1,8 +1,9 @@
 var cityFormEl = document.querySelector("#city-form");
-var cityInputEl = document.querySelector("#cities")
+var cityInputEl = document.querySelector("#cities");
 var apiKey = "c155a3cc1e033984455148d28a12c930"
-var locationEl = document.querySelector("#current-location")
-var timeEl = document.querySelector("#current-time")
+var locationEl = document.querySelector("#current-location");
+var timeEl = document.querySelector("#current-time");
+var tempEl = document.querySelector("#current-temp");
 
 /* City Search Section */
 
@@ -48,20 +49,26 @@ var getWeatherData = function(city) {
 
 var displayWeather = function(data) {
   // Today Section
-
   // Current Location
-  // let locationEl = document.querySelector("#current-location")
+  console.log(data)
   let currentLocation = data.name;
-
   locationEl.append(currentLocation);
 
   // Current Time
-  // let timeEl = document.querySelector("#current-time")
   let currentTime = moment().format('LT');
   timeEl.append("As of " + currentTime);
+
+  // Current Temp
+  let currentTemp = convertTempFahrenheit(parseInt(data.main.temp));
+  console.log(currentTemp);
+  tempEl.append(currentTemp + " °F");
+
 }
 
-
+var convertTempFahrenheit = function(kelvin) {
+  let fahrenheit = (kelvin - 273.15) * (9/5) + 32;
+  return (Math.round(fahrenheit * 100) / 100);
+}
 
 // add event listeners to form and button container
 cityFormEl.addEventListener("submit", formSubmitHandler);
