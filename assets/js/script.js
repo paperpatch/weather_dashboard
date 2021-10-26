@@ -4,6 +4,10 @@ var apiKey = "c155a3cc1e033984455148d28a12c930"
 var locationEl = document.querySelector("#current-location");
 var timeEl = document.querySelector("#current-time");
 var tempEl = document.querySelector("#current-temp");
+var tempMaxMinEl = document.querySelector("#current-maxminTemp");
+var statusEl = document.querySelector("#current-status")
+var weatherPicEl = document.querySelector("#current-picture");
+
 
 /* City Search Section */
 
@@ -60,14 +64,46 @@ var displayWeather = function(data) {
 
   // Current Temp
   let currentTemp = convertTempFahrenheit(parseInt(data.main.temp));
-  console.log(currentTemp);
   tempEl.append(currentTemp + " °F");
 
+  // Current Outside Weather
+  let currentWeather = data.weather[0].main
+  statusEl.append(currentWeather);
+
+  let currentWeatherID = parseInt(data.weather[0].id);
+
+  if (currentWeatherID >= 200 && currentWeatherID <= 232 ) {
+    // Thunderstorm
+    weatherPicEl.classList.add("bi", "bi-cloud-lightning-rain");
+  } else if (currentWeatherID >= 300 && currentWeatherID <= 321) {
+    // Drizzle
+    weatherPicEl.classList.add("bi", "bi-cloud-drizzle");
+  } else if (currentWeatherID >= 500 && currentWeatherID <= 531) {
+    // Rain
+    weatherPicEl.classList.add("bi", "bi-cloud-rain-heavy");
+  } else if (currentWeatherID >= 600 && currentWeatherID <= 622) {
+    // Snow
+    weatherPicEl.classList.add("bi", "bi-cloud-snow");
+  } else if (currentWeatherID >= 701 && currentWeatherID <= 781) {
+    // Other - Mist, Smoke, Haze, Dust, Fog, Ash, Squall, Tornado
+    weatherPicEl.classList.add("bi", "bi-wind");
+  } else if (currentWeatherID === 800) {
+    // Clear
+    weatherPicEl.classList.add("bi", "bi-sun");
+  } else {
+    // Cloudy
+    weatherPicEl.classList.add("bi", "bi-cloudy");
+  }
+
+  // Current Max/Min Temp
+  let currentMaxTemp = convertTempFahrenheit(parseInt(data.main.temp_max));
+  let currentMinTemp = convertTempFahrenheit(parseInt(data.main.temp_min));
+  tempMaxMinEl.append(currentMaxTemp + '° /' + currentMinTemp + '°');
 }
 
 var convertTempFahrenheit = function(kelvin) {
   let fahrenheit = (kelvin - 273.15) * (9/5) + 32;
-  return (Math.round(fahrenheit * 100) / 100);
+  return (Math.round(fahrenheit));
 }
 
 // add event listeners to form and button container
