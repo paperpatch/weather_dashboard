@@ -1,3 +1,145 @@
-body {
-  font-family: sans-serif;
+:root {
+  --blue: #00346b;
+  --indigo: #002853;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --purple: #702963;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --tan: #e0e0e0;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --warning-high: #c24450;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --font-family-sans-serif: 'Roborto', sans-serif;
 }
+
+
+html, body {
+  font-family: var(--font-family-sans-serif);
+  height: 100%;
+}
+
+/* Header Section */
+
+.head {
+  text-align: center;
+  padding: 10px;
+}
+.head h1 {
+  padding-bottom: 5px;
+  font-weight: bold;
+}
+
+hr {
+  margin: 20px auto;
+  border-top: 2px solid var(--gray);
+  width: 80%;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: bold;
+}
+
+label {
+  padding-left: 15px;
+  font-weight: bold;
+}
+
+input {
+  padding: 5px;
+  border-radius: 8px;
+  width: 40%;
+}
+
+.btn {
+  border-radius: 15px;
+}
+
+.card-header {
+  background-color: var(--white);
+  border: none;
+}
+
+.list-group {
+  margin: 5px;
+}
+
+.list-group, .list-group-item {
+  border: none;
+  border-radius: 10px;
+}
+
+.list-group-item:hover {
+  border: 1px solid black;
+}
+
+/* Main */
+
+main {
+  background-color: var(--light);
+}
+
+/* Today Section */
+
+.today {
+  width: 100%;
+  height: 30%;
+  background-color: var(--white);
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.today h4 {
+  padding: 2px;
+}
+
+#current-picture {
+  font-size: 100px;
+}
+
+/* Cards Section */
+
+.row {
+  margin: 10px;
+}
+
+.col-3 {
+  padding: 0px;
+}
+
+.card {
+  background-color: var(--white);
+  border-radius: 15px;
+  border: none;
+}
+
+/* .card-body {
+
+} */
+
+/* 5-Day Forecast */
+
+/* .dailyForecast {
+  margin
+} */
+
+/* UV Section */
+.uv-danger {color: var(--purple)}
+.uv-veryhigh {color: var(--danger)}
+.uv-high {color: var(--orange)}
+.uv-moderate {color: var(--warning)}
+.uv-low {color: var(--green)}

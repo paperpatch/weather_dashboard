@@ -7,30 +7,36 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/style.css" />
   <title>Weather Dashboard</title>
 </head>
 
-<body class="row min-100-vh">
+<body class="row">
   <header class="col-12 col-lg-3 sticky-top d-flex flex-column p-4 p-lg-3">
     <div>
-      <h1 class="text-center">
-        Weather Dashboard
-      </h1>
-      <h4 id="currentDay"></h4>
-      <h4 id="currentTime"></h4>
+      <div class="head">
+        <h1 class="text-center">
+          Weather Dashboard
+        </h1>
+        <h4 id="currentDay"></h4>
+        <h4 id="currentTime"></h4>
+      </div>
+      <hr>
 
       <div class="card">
-        <a href="./index.html" class="card-header text-uppercase">Dashboard</a>
+        <a href="./index.html" class="card-header">Dashboard</a>
       </div>
 
       <div class="card">
-        <a href="https://www.google.com/maps" target="_blank" class="card-header text-uppercase">Map</a>
+        <a href="https://openweathermap.org/api/one-call-api" target="_blank" class="card-header">OpenWeather One Call API</a>
       </div>
-
       <div class="card">
-        <a href="https://openweathermap.org/api/one-call-api" target="_blank" class="card-header text-uppercase">OpenWeather API</a>
+        <a href="https://openweathermap.org/api/one-call-api" target="_blank" class="card-header">OpenWeather Current API</a>
       </div>
+      <hr>
 
       <div class="card">
         <label class="form-label" for="cities">Searched Cities</label>
@@ -41,23 +47,23 @@
 
   <main class="col-12 col-lg-9 d-flex flex-column">
     <div class="flex-row justify-space-between">
-      <div class="col-12 col-md-8">
+      <div class="col-12">
         <form id="city-form" class="card-body">
-          <label class="form-label" for="cities">Search for a City:</label>
-          <input id="cities" name="cities"  type="text" autofocus="true" class="form-input" />
+          <label class="form-label bi bi-search" for="cities" ></label>
+          <input id="cities" name="cities"  type="text" autofocus="true" class="form-input" placeholder="Search for a City ..."/>
           <button type="submit" class="btn">Search</button>
         </form>
       </div>
 
       <!-- Current Today Section -->
-      <div class="col-12 row">
-        <div class="card col-3">
-          <h4 id="current-location" class="card-body align-items-center"></h4>
+      <div class="col-12 row today">
+        <div class="col-4">
+          <h4 id="current-location" class="card-body"></h4>
           <h5 id="current-time"></h5>
           <h2 id="current-temp"></h2>
           <h4 id="current-status"></h4>
         </div>
-        <div class="col-3">
+        <div class="col-8">
           <div id="current-picture"></div>
           <h4 id="current-maxminTemp"></h4>
         </div>
@@ -119,7 +125,7 @@
       </div>
 
       <!-- 5 Day Forecast -->
-      <div id="forecast" class="mt-3 row"></div>
+      <div id="forecast" class="mt-3 row d-flex p-2"></div>
 
     </div>
   </main>
