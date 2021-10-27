@@ -18,26 +18,24 @@ function clock() {
   let formatTime = moment(today).format('h:mm a')
   $("#currentDay").html(formatToday);
   $("currentTime").html(formatTime);
-  setInterval(clock, 60 * 1000);
+  setInterval(clock, 60 * 1000 * 60); // every hour
 }
 clock();
 
 
-/* City Search Section */
+/* SEARCH SECTION*/
 
 var formSubmitHandler = function(event) {
-  event.preventDefault();
 
   // get value form input element
-  var cityName = cityInputEl.value.trim();
+  var cityInput = cityInputEl.value.trim();
+  let cityName = cityInput.toUpperCase();
+
+  // clear search input
+  $("#cities").val("");
 
   if (cityName) {
-    // 
-
-
-
-
-    // clear old content
+    // clear old content for weather data
     $("#current-location").empty();
     $("#current-time").empty();
     $("#current-temp").empty();
@@ -51,11 +49,36 @@ var formSubmitHandler = function(event) {
     $("#wind-direction").empty();
     $("#humidity").empty();
 
+    // Weather
     getWeatherData(cityName);
+    // Add Searched cities to list and localStorage
+    citiesList(cityName);
   } else {
     alert("Please enter the name of a city")
   }
 }
+
+// CITIES SECTION //
+
+var citiesList = function(searchValue) {
+  // Add cities to list, don't let it repeat. If citiesStorage can be found. 1 for yes. -1 for no.
+  searchValue.toUpperCase();
+  if (citiesStorage.indexOf(searchValue) === -1) {
+    citiesStorage.push(searchValue);
+    window.localStorage.setItem("cityList", JSON.stringify(citiesStorage));
+    
+    appendRow(searchValue);
+  }
+}
+
+// MAKE A NEW ROW FUNCTION
+
+var appendRow = function(text) {
+  let li = $("<li>").addClass("list-group-item list-group-item-action").text(text)
+  $("#cities-container").append(li);
+};
+
+// WEATHER SECTION //
 
 var getWeatherData = function(city) {
   // format openweather api url
@@ -72,14 +95,14 @@ var getWeatherData = function(city) {
     }
   })
   .catch(function() {
-    alert("Unable to connect to OpenWeather Current Weather For One Location API");
+    alert("Unable to connect to 'OpenWeather Current Weather For One Location' API");
   });
 };
 
 var displayWeather = function(data) {
   // Today Section //
   // Current Location
-  console.log(data)
+  // console.log(data)
   let currentLocation = data.name;
   let countryLocation = data.sys.country;
   locationEl.append(currentLocation + ", " + countryLocation);
@@ -155,7 +178,8 @@ var displayWeather = function(data) {
 
 }
 
-// Get Other API function
+// Get Other API Section because the first one doesn't have UV and Daily data
+
 var getUV = function(lat, lon) {
   var otherApiKey = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat +"&lon=" + lon +"&exclude={part}&appid=" + apiKey;
 
@@ -175,10 +199,10 @@ var getUV = function(lat, lon) {
   })
 }
 
-// UV and 5-Day Forecast Section
+// UV AND 5-DAY FORECAST SECTION
 
 var displayClimate = function(data) {
-  console.log(data);
+  // console.log(data);
   // UV Section
   let currentUV = data.current.uvi;
   if (currentUV >= 11) {
@@ -200,12 +224,13 @@ var displayClimate = function(data) {
     ultraviolet.append(currentUV);
   }
 
-  // 5-day forecast
+  // 5-day forecast section
   // clear previous data
   $("#forecast").empty();
+  $("#forecast").append($("<h2>").text("5-Day Forecast:"));
 
   // loop over available days in data
-  for (var i = 1; i < data.daily.length-1; i++) {
+  for (var i = 1; i < data.daily.length-2; i++) {
     // convert unix time to usable data.
     let timeUnix = moment.unix(data.daily[i].dt);
     let timeSplit = String(timeUnix._d);
@@ -215,11 +240,11 @@ var displayClimate = function(data) {
     // for each day, add a column, card and card-body
     var newDiv = document.createElement("div")
     newDiv.className = "dailyForecast";
-    $(".dailyForecast").addClass("col-1");
+    $(".dailyForecast").addClass("col-2");
     $("#forecast").append(newDiv);
 
     // new card and header (header is time)
-    let forecastCard = $(".dailyForecast").addClass("card mb-3").attr("style", "max-width: 16em");
+    let forecastCard = $(".dailyForecast").addClass("card").attr("style", "max-width: 16em");
     let cardHeaderEl = $("<h5>").addClass("card-title").text(timeSlice);
     let cardBodyEl = $("<div>").addClass("card-body");
     forecastCard.append(cardBodyEl);
@@ -236,7 +261,7 @@ var displayClimate = function(data) {
 }
 
 
-// Various Convert Function Section
+// CONVERT FUNCTIONS SECTION
 
 var convertTempFahrenheit = function(kelvin) {
   let fahrenheit = (kelvin - 273.15) * (9/5) + 32;
@@ -285,6 +310,19 @@ var convertDegDirection = function(deg) {
   }
 }
 
-// add event listeners to form and button container
-cityFormEl.addEventListener("submit", formSubmitHandler);
+// LOAD STORAGE SECTION
 
+var citiesStorage = JSON.parse(window.localStorage.getItem("cityList")) || [];
+if (citiesStorage.length > 0) {
+
+}
+for (let i=0; i < citiesStorage.length; i++) {
+  appendRow(citiesStorage[i]);
+}
+
+// EVENT LISTENER SECTION
+
+cityFormEl.addEventListener("submit", formSubmitHandler);
+$("#cities-container").on("click", "li", function() {
+  formSubmitHandler($(this).text());
+})
