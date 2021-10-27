@@ -9,6 +9,7 @@ var statusEl = document.querySelector("#current-status")
 var tempCardFeels = document.querySelector("#temp-feels");
 var tempCardMax = document.querySelector("#tempMax");
 var tempCardMin = document.querySelector("#tempMin");
+var ultraviolet = document.querySelector("#ultraviolet");
 
 
 /* City Search Section */
@@ -24,14 +25,14 @@ var formSubmitHandler = function(event) {
     getWeatherData(cityName);
 
     // clear old content
-    locationEl.clear();
-    timeEl.clear();
-    tempEl.clear();
-    tempMaxMinEl.clear();
-    statusEl.clear();
-    tempCardFeels.clear();
-    tempCardMax.clear();
-    tempCardMin.clear();
+    // locationEl.clear();
+    // timeEl.clear();
+    // tempEl.clear();
+    // tempMaxMinEl.clear();
+    // statusEl.clear();
+    // tempCardFeels.clear();
+    // tempCardMax.clear();
+    // tempCardMin.clear();
     // Wind.value/content = "";
     // Humidity.value/content = "";
     // UVIndex.value/content = "";
@@ -121,7 +122,7 @@ var displayWeather = function(data) {
   tempCardMin.append(currentMinTemp);
 
   // Wind Card
-  let windSpeed = convertMPStoMPH(data.wind.speed);
+  let windSpeed = convertMPStoMPH(parseInt(data.wind.speed));
   let windDirection = convertDegDirection(parseInt(data.wind.deg));
   $("#wind-speed").append(windSpeed + " mph");
   $("#wind-direction").append(windDirection);
@@ -161,8 +162,91 @@ var getUV = function(lat, lon) {
 // UV and 5-Day Forecast Section
 
 var displayClimate = function(data) {
-  // 
+  console.log(data);
+  // UV Section
+  let currentUV = data.current.uvi;
+  if (currentUV >= 11) {
+    $("#ultraviolet").addClass("uv-danger")
+    ultraviolet.append(currentUV);
+  } else if (currentUV >= 8 && currentUV < 11) {
+    $("#ultraviolet").addClass("uv-veryhigh")
+    ultraviolet.append(currentUV);
+  } else if (currentUV >= 6 && currentUV < 8) {
+    $("#ultraviolet").addClass("uv-high")
+    ultraviolet.append(currentUV);
+  } else if (currentUV >= 3 && currentUV < 6) {
+    $("#ultraviolet").addClass("uv-moderate")
+    ultraviolet.append(currentUV);
+  } else if (currentUV >=0 && currentUV < 3) {
+    $("#ultraviolet").addClass("uv-low")
+    ultraviolet.append(currentUV);
+  } else {
+    ultraviolet.append(currentUV);
+  }
+
+  // 5-day forecast
+  // clear previous data
+  $("#forecast").empty();
+
+  // loop over available days in data
+  for (var i = 0; i < data.daily.length; i++) {
+    // convert unix time to usable data.
+    let timeUnix = moment.unix(data.daily[i].dt);
+    let timeSplit = timeUnix._d;
+    let timeSlice = timeSplit.split(/\s+/).slice(0,3).join(" ");
+    console.log(timeSlice);
+
+    // add new div (column)
+    // for each day, add a column, card and card-body
+    var newDiv = document.createElement("div")
+    newDiv.className = "dailyForecast";
+    $(".dailyForecast").addClass("col-md-2");
+    $("#forecast").append(newDiv);
+
+    // new card and header
+    let forecastCard = $(".dailyForecast").addClass("card mb-3").attr("style", "max-width: 16em");
+    let cardBodyEl = $("<div>").addClass("card-body");
+
+    let cardHeaderEl = $("<h5>").addClass("card-title").text(moment.unix(data.daily[i].dt));
+    
+    // new icon, temperature and humidity under card body
+    let forecastIconEl = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + ".png").addClass("card-title");
+    let tempF = (Math.round((data.daily[i].temp.day -273.15) * 1.80 + 32));
+    let forecastTempEl = $("<div>").addClass("card-title").text("Temp: " + tempF + " \u00B0" + "F");
+    let forecastHumEl = $("<div>").addClass("card-title").text("Humidity: " + data.daily[i].humidity + "%");
+
+    forecastCard.append(cardBodyEl);
+    cardBodyEl.append(cardHeaderEl, forecastIconEl, forecastTempEl, forecastHumEl);
+    newDiv.append(col.append(forecastCard));
+
+    
+    // copied from above function
+    if (currentWeatherID >= 200 && currentWeatherID <= 232 ) {
+      // Thunderstorm
+      $("#current-picture").addClass("bi bi-cloud-lightning-rain");
+    } else if (currentWeatherID >= 300 && currentWeatherID <= 321) {
+      // Drizzle
+      $("#current-picture").addClass("bi bi-cloud-drizzle");
+    } else if (currentWeatherID >= 500 && currentWeatherID <= 531) {
+      // Rain
+      $("#current-picture").addClass("bi bi-cloud-rain-heavy");
+    } else if (currentWeatherID >= 600 && currentWeatherID <= 622) {
+      // Snow
+      $("#current-picture").addClass("bi bi-cloud-snow");
+    } else if (currentWeatherID >= 701 && currentWeatherID <= 781) {
+      // Other - Mist, Smoke, Haze, Dust, Fog, Ash, Squall, Tornado
+      $("#current-picture").addClass("bi bi-wind");
+    } else if (currentWeatherID === 800) {
+      // Clear
+      $("#current-picture").addClass("bi bi-sun");
+    } else {
+      // Cloudy
+      $("#current-picture").addClass("bi bi-cloudy");
+    }
+  }
 }
+
+
 
 
 // Various Convert Function Section
@@ -173,7 +257,7 @@ var convertTempFahrenheit = function(kelvin) {
 }
 
 var convertMPStoMPH = function(mps) {
-  return mph = parseInt(mps) * 2.236936;
+  return mph = (mps * 2.236936).toFixed(2);
 }
 
 var convertDegDirection = function(deg) {
