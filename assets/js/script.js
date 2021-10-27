@@ -26,8 +26,9 @@ clock();
 /* SEARCH SECTION*/
 
 var formSubmitHandler = function(event) {
+  event.preventDefault();
 
-  // get value form input element
+  // get value from input element
   var cityInput = cityInputEl.value.trim();
   let cityName = cityInput.toUpperCase();
 
@@ -35,24 +36,12 @@ var formSubmitHandler = function(event) {
   $("#cities").val("");
 
   if (cityName) {
-    // clear old content for weather data
-    $("#current-location").empty();
-    $("#current-time").empty();
-    $("#current-temp").empty();
-    $("#current-maxminTemp").empty();
-    $("#current-status").empty();
-    $("#temp-feels").empty();
-    $("#tempMax").empty();
-    $("#tempMin").empty();
-    $("#ultraviolet").empty();
-    $("#wind-speed").empty();
-    $("#wind-direction").empty();
-    $("#humidity").empty();
+
+    // Add Searched cities to list and localStorage
+    citiesList(cityName);
 
     // Weather
     getWeatherData(cityName);
-    // Add Searched cities to list and localStorage
-    citiesList(cityName);
   } else {
     alert("Please enter the name of a city")
   }
@@ -62,7 +51,6 @@ var formSubmitHandler = function(event) {
 
 var citiesList = function(searchValue) {
   // Add cities to list, don't let it repeat. If citiesStorage can be found. 1 for yes. -1 for no.
-  searchValue.toUpperCase();
   if (citiesStorage.indexOf(searchValue) === -1) {
     citiesStorage.push(searchValue);
     window.localStorage.setItem("cityList", JSON.stringify(citiesStorage));
@@ -81,6 +69,20 @@ var appendRow = function(text) {
 // WEATHER SECTION //
 
 var getWeatherData = function(city) {
+  // clear old content for weather data
+  $("#current-location").empty();
+  $("#current-time").empty();
+  $("#current-temp").empty();
+  $("#current-maxminTemp").empty();
+  $("#current-status").empty();
+  $("#temp-feels").empty();
+  $("#tempMax").empty();
+  $("#tempMin").empty();
+  $("#ultraviolet").empty();
+  $("#wind-speed").empty();
+  $("#wind-direction").empty();
+  $("#humidity").empty();
+
   // format openweather api url
   var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey
 
@@ -156,12 +158,14 @@ var displayWeather = function(data) {
   // Card Sections //
   // Temperature Card
   let tempFeels = convertTempFahrenheit(parseInt(data.main.feels_like));
-  tempCardFeels.append(tempFeels);
+  tempCardFeels.append(tempFeels + " °F");
   tempCardMax.append(currentMaxTemp);
   tempCardMin.append(currentMinTemp);
 
   // Wind Card
   let windSpeed = convertMPStoMPH(parseInt(data.wind.speed));
+  console.log(data.wind.speed);
+  console.log(windSpeed);
   let windDirection = convertDegDirection(parseInt(data.wind.deg));
   $("#wind-speed").append(windSpeed + " mph");
   $("#wind-direction").append(windDirection);
@@ -321,8 +325,9 @@ for (let i=0; i < citiesStorage.length; i++) {
 }
 
 // EVENT LISTENER SECTION
-
+// Original Button
 cityFormEl.addEventListener("submit", formSubmitHandler);
+// List Buttons
 $("#cities-container").on("click", "li", function() {
-  formSubmitHandler($(this).text());
+  getWeatherData($(this).text());
 })
