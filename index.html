@@ -29,12 +29,11 @@
       <div class="card">
         <a href="./index.html" class="card-header">Dashboard</a>
       </div>
-
       <div class="card">
         <a href="https://openweathermap.org/api/one-call-api" target="_blank" class="card-header">OpenWeather One Call API</a>
       </div>
       <div class="card">
-        <a href="https://openweathermap.org/api/one-call-api" target="_blank" class="card-header">OpenWeather Current API</a>
+        <a href="https://openweathermap.org/current" target="_blank" class="card-header">OpenWeather Current API</a>
       </div>
       <hr>
 
@@ -57,32 +56,32 @@
 
       <!-- Current Today Section -->
       <div class="col-12 row today">
-        <div class="col-4">
+        <div class="col-4 section1">
           <h4 id="current-location" class="card-body"></h4>
           <h5 id="current-time"></h5>
           <h2 id="current-temp"></h2>
           <h4 id="current-status"></h4>
         </div>
-        <div class="col-8">
+        <div class="col-8 section2 justify-content-center">
           <div id="current-picture"></div>
           <h4 id="current-maxminTemp"></h4>
         </div>
       </div>
       
       <!-- Cards -->
-      <div class="row">
+      <div class="row weatherData">
         <!-- Temperature Card -->
-        <div class="col-3">
+        <div class="col-3 weatherInfo">
           <div class="card">
-            <h4 class="card-body align-items-center">
-              Temp
+            <h4 class="card-body">
+              Temperature
             </h4>
             <div class="row">
               <div class="col-3"><i class="bi bi-thermometer-high"></i></div>
-              <div class="col-5">Feels Like: 
+              <div class="col-5 text-feels">Feels Like: 
                 <div id="temp-feels"></div>
               </div>
-              <div class="col-4">Hi / Lo
+              <div class="col-4 text-hilo">Hi / Lo
                 <div id="tempMax"></div>
                 <div id="tempMin"></div>
               </div> 
@@ -90,21 +89,21 @@
           </div>
         </div>
         <!-- Wind Card -->
-        <div class="col-3">
+        <div class="col-3 weatherInfo">
           <div class="card">
-            <h4 class="card-body align-items-center">
+            <h4 class="card-body">
               Wind Status
             </h4>
-            <div class="row">
+            <div class="row wind-text">
               <div class="col-12" id="wind-speed"></div>
               <i class="col-3 bi bi-compass"></i><div class="col-9" id="wind-direction"></div>
             </div>
           </div>
         </div>
         <!-- Humidity Card -->
-        <div class="col-3">
+        <div class="col-3 weatherInfo">
           <div class="card">
-            <h4 class="card-body align-items-center">
+            <h4 class="card-body">
               Humidity
             </h4>
             <div class="row">
@@ -114,9 +113,9 @@
           </div>
         </div>
         <!-- UV Card -->
-        <div class="col-3">
+        <div class="col-3 weatherInfo">
           <div class="card">
-            <h4 class="card-body align-items-center">
+            <h4 class="card-body">
               UV Index
             </h4>
             <div id="ultraviolet"></div>

@@ -242,12 +242,10 @@ var displayClimate = function (data) {
     newDiv.className = "dailyForecast";
     $(".dailyForecast").addClass("col p-3 m-3");
     
-
     // new card and header (header is time)
     let forecastCard = $(".dailyForecast").addClass("card").attr("style", "max-width: 15em");
     let cardHeaderEl = $("<h5>").addClass("card-title").text(timeSlice);
     let cardBodyEl = $("<div>").addClass("card-body");
-    
 
     // new picture icon, temperature, wind and humidity under card body
     let forecastIconEl = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + ".png").addClass("card-title");

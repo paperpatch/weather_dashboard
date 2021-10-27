@@ -1,27 +1,19 @@
 :root {
-  --blue: #00346b;
   --indigo: #002853;
-  --pink: #e83e8c;
   --red: #dc3545;
   --orange: #fd7e14;
   --yellow: #ffc107;
   --purple: #702963;
   --green: #28a745;
-  --teal: #20c997;
   --cyan: #17a2b8;
   --white: #fff;
   --tan: #e0e0e0;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: #007bff;
-  --secondary: #6c757d;
-  --success: #28a745;
-  --info: #17a2b8;
   --warning: #ffc107;
   --warning-high: #c24450;
   --danger: #dc3545;
   --light: #f8f9fa;
-  --dark: #343a40;
   --font-family-sans-serif: 'Roborto', sans-serif;
 }
 
@@ -45,7 +37,7 @@ html, body {
 hr {
   margin: 20px auto;
   border-top: 2px solid var(--gray);
-  width: 80%;
+  width: 90%;
 }
 
 a:link, a:visited {
@@ -57,6 +49,10 @@ a:link, a:visited {
 label {
   padding-left: 15px;
   font-weight: bold;
+}
+
+.bi-search {
+  padding-right: 20px;
 }
 
 input {
@@ -90,25 +86,48 @@ input {
 /* Main */
 
 main {
-  background-color: var(--light);
+  background-color: var(--tan);
 }
 
 /* Today Section */
 
 .today {
-  width: 100%;
+  width: 98%;
   height: 30%;
   background-color: var(--white);
   border-radius: 10px;
-  margin: 10px;
+  margin: 10px 30px 10px 10px;
 }
 
 .today h4 {
   padding: 2px;
 }
+.section1, .section2 {
+  padding: 20px;
+}
+
+#current-location {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 15px 0 0 15px;
+}
+#current-time {
+  font-size: 18px;
+  margin-left: 15px;
+  color: var(--gray-dark);
+}
+#current-temp {
+  margin-left: 15px;
+  font-size: 100px;
+}
+#current-status {
+  margin-left: 15px;
+  font-size: 25px;
+}
 
 #current-picture {
-  font-size: 100px;
+  margin-top: 20px;
+  font-size: 125px;
 }
 
 /* Cards Section */
@@ -127,15 +146,56 @@ main {
   border: none;
 }
 
-/* .card-body {
+.weatherData {
+  height: 30%;
+  margin-top: 20px;
+}
 
-} */
+.weatherData .card {
+  height: 70%;
+  padding: 15px;
+  width: 90%;
+}
+
+.weatherData h4 {
+  padding: 5px;
+}
+
+.weatherInfo .row {
+  margin: 0px 10px 40px 10px;
+}
+
+.weatherInfo .bi {
+  font-size: 60px;
+}
+.weatherInfo .bi-compass {
+  font-size: 20px;
+}
+
+.text-feels, .text-hilo, #wind-speed, #wind-direction {font-weight: bold;}
+.bi-thermometer-high {color: var(--indigo)}
+#tempMax {color: red;}
+#tempMin {color: blue;}
+
+.wind-text {margin-bottom: 40px;}
+#wind-speed {font-size: 45px; font-weight: lighter;}
+.bi-compass {text-align: center; margin-top: 20px; color: var(--indigo)}
+#wind-direction {margin-top: 25px;}
+
+#humidity {text-align: center; font-size: 50px;}
+.bi-droplet {color: var(--cyan)}
+
+#ultraviolet {text-align: center; font-size: 50px; font-weight: bold;margin-bottom: 60px;}
 
 /* 5-Day Forecast */
 
-/* .dailyForecast {
-  margin
-} */
+#forecast {
+  margin: 0;
+}
+.dailyForecast .card-body img {
+  font-size: 130px;
+  text-align: center;
+}
 
 /* UV Section */
 .uv-danger {color: var(--purple)}
