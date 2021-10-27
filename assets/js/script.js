@@ -12,6 +12,17 @@ var tempCardMin = document.querySelector("#tempMin");
 var ultraviolet = document.querySelector("#ultraviolet");
 
 
+function clock() {
+  let today = new Date();
+  let formatToday = moment(today).format('MMMM Do YYYY');
+  let formatTime = moment(today).format('h:mm a')
+  $("#currentDay").html(formatToday);
+  $("currentTime").html(formatTime);
+  setInterval(clock, 60 * 1000);
+}
+clock();
+
+
 /* City Search Section */
 
 var formSubmitHandler = function(event) {
@@ -21,21 +32,26 @@ var formSubmitHandler = function(event) {
   var cityName = cityInputEl.value.trim();
 
   if (cityName) {
+    // 
 
-    getWeatherData(cityName);
+
+
 
     // clear old content
-    // locationEl.clear();
-    // timeEl.clear();
-    // tempEl.clear();
-    // tempMaxMinEl.clear();
-    // statusEl.clear();
-    // tempCardFeels.clear();
-    // tempCardMax.clear();
-    // tempCardMin.clear();
-    // Wind.value/content = "";
-    // Humidity.value/content = "";
-    // UVIndex.value/content = "";
+    $("#current-location").empty();
+    $("#current-time").empty();
+    $("#current-temp").empty();
+    $("#current-maxminTemp").empty();
+    $("#current-status").empty();
+    $("#temp-feels").empty();
+    $("#tempMax").empty();
+    $("#tempMin").empty();
+    $("#ultraviolet").empty();
+    $("#wind-speed").empty();
+    $("#wind-direction").empty();
+    $("#humidity").empty();
+
+    getWeatherData(cityName);
   } else {
     alert("Please enter the name of a city")
   }
@@ -189,64 +205,35 @@ var displayClimate = function(data) {
   $("#forecast").empty();
 
   // loop over available days in data
-  for (var i = 0; i < data.daily.length; i++) {
+  for (var i = 1; i < data.daily.length-1; i++) {
     // convert unix time to usable data.
     let timeUnix = moment.unix(data.daily[i].dt);
-    let timeSplit = timeUnix._d;
+    let timeSplit = String(timeUnix._d);
     let timeSlice = timeSplit.split(/\s+/).slice(0,3).join(" ");
-    console.log(timeSlice);
 
     // add new div (column)
     // for each day, add a column, card and card-body
     var newDiv = document.createElement("div")
     newDiv.className = "dailyForecast";
-    $(".dailyForecast").addClass("col-md-2");
+    $(".dailyForecast").addClass("col-1");
     $("#forecast").append(newDiv);
 
-    // new card and header
+    // new card and header (header is time)
     let forecastCard = $(".dailyForecast").addClass("card mb-3").attr("style", "max-width: 16em");
+    let cardHeaderEl = $("<h5>").addClass("card-title").text(timeSlice);
     let cardBodyEl = $("<div>").addClass("card-body");
+    forecastCard.append(cardBodyEl);
 
-    let cardHeaderEl = $("<h5>").addClass("card-title").text(moment.unix(data.daily[i].dt));
-    
-    // new icon, temperature and humidity under card body
+    // new picture icon, temperature, wind and humidity under card body
     let forecastIconEl = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + ".png").addClass("card-title");
     let tempF = (Math.round((data.daily[i].temp.day -273.15) * 1.80 + 32));
     let forecastTempEl = $("<div>").addClass("card-title").text("Temp: " + tempF + " \u00B0" + "F");
-    let forecastHumEl = $("<div>").addClass("card-title").text("Humidity: " + data.daily[i].humidity + "%");
+    let forecastWindEl = $("<div>").addClass("card-title").text("Wind: " + data.daily[i].wind_speed + " mps");
+    let forecastHumEl = $("<div>").addClass("card-title").text("Humidity: " + data.daily[i].humidity + " %");
 
-    forecastCard.append(cardBodyEl);
-    cardBodyEl.append(cardHeaderEl, forecastIconEl, forecastTempEl, forecastHumEl);
-    newDiv.append(col.append(forecastCard));
-
-    
-    // copied from above function
-    if (currentWeatherID >= 200 && currentWeatherID <= 232 ) {
-      // Thunderstorm
-      $("#current-picture").addClass("bi bi-cloud-lightning-rain");
-    } else if (currentWeatherID >= 300 && currentWeatherID <= 321) {
-      // Drizzle
-      $("#current-picture").addClass("bi bi-cloud-drizzle");
-    } else if (currentWeatherID >= 500 && currentWeatherID <= 531) {
-      // Rain
-      $("#current-picture").addClass("bi bi-cloud-rain-heavy");
-    } else if (currentWeatherID >= 600 && currentWeatherID <= 622) {
-      // Snow
-      $("#current-picture").addClass("bi bi-cloud-snow");
-    } else if (currentWeatherID >= 701 && currentWeatherID <= 781) {
-      // Other - Mist, Smoke, Haze, Dust, Fog, Ash, Squall, Tornado
-      $("#current-picture").addClass("bi bi-wind");
-    } else if (currentWeatherID === 800) {
-      // Clear
-      $("#current-picture").addClass("bi bi-sun");
-    } else {
-      // Cloudy
-      $("#current-picture").addClass("bi bi-cloudy");
-    }
+    cardBodyEl.append(cardHeaderEl, forecastIconEl, forecastTempEl, forecastWindEl, forecastHumEl);
   }
 }
-
-
 
 
 // Various Convert Function Section
