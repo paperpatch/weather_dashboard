@@ -34,10 +34,6 @@ var formSubmitHandler = function (event) {
   $("#cities").val("");
 
   if (cityName) {
-
-    // Add Searched cities to list and localStorage
-    citiesList(cityName);
-
     // Weather
     getWeatherData(cityName);
   } else {
@@ -88,6 +84,8 @@ var getWeatherData = function (city) {
       // request was successful
       if (response.ok) {
         response.json().then(function (data) {
+          // Add Searched cities to list and localStorage
+          citiesList(data.name);
           displayWeather(data);
         });
       } else {
@@ -322,3 +320,6 @@ cityFormEl.addEventListener("submit", formSubmitHandler);
 $("#cities-container").on("click", "li", function () {
   getWeatherData($(this).text());
 })
+
+// load cities up with hartford city first, even with refresh
+getWeatherData("hartford");
