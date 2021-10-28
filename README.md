@@ -24,7 +24,7 @@ Built With:
 
 ## HOW TO USE
 
-- Go to the webpage https://paperpatch.github.io/weekly-challenge-6/
+- Go to the deployed webpage [here](https://paperpatch.github.io/weekly-challenge-6/).
 - Default City will be Hartford, US. Enter a city in the search function to load up a new city.
 - Searched cities will be appended to a list on the side. Clicking on it will load up that particular city.
 - City list will be saved on your local storage. (Go to your webpage developer tools, `For Chrome Use F12`, and navigate to Developer Tools --> Application --> Storage --> Local Storage )
