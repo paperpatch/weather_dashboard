@@ -21,6 +21,7 @@
 html, body {
   font-family: var(--font-family-sans-serif);
   height: 100%;
+  background-size: 100% 100%;
 }
 
 /* Header Section */
@@ -67,6 +68,7 @@ input {
 
 .card-header {
   background-color: var(--white);
+  background-size: 100%;
   border: none;
 }
 
@@ -87,6 +89,10 @@ input {
 
 main {
   background-color: var(--tan);
+  background-size: 100%;
+  background-size: contain;
+  background-size: 100vw 100vh;
+  padding: 20px;
 }
 
 /* Today Section */
@@ -103,20 +109,16 @@ main {
   padding: 2px;
 }
 .section1, .section2 {
-  padding: 20px;
+  padding: 5px;
 }
 
 #current-location {font-size: 30px;font-weight: bold;margin: 15px 0 0 15px;}
 #current-time {font-size: 18px;margin-left: 15px;color: var(--gray-dark);}
 #current-temp {margin-left: 15px;font-size: 100px;}
 #current-status {margin-left: 15px;font-size: 25px;}
-#current-picture {margin-top: 20px;font-size: 125px;}
+#current-picture {margin: 0 auto;font-size: 125px;}
 
 /* Cards Section */
-
-.row {
-  margin: 10px;
-}
 
 .col-3 {
   padding: 0px;
@@ -129,23 +131,24 @@ main {
 }
 
 .weatherData {
-  height: 30%;
+  height: 100%;
   margin-top: 20px;
 }
 
 .weatherData .card {
-  height: 70%;
-  padding: 15px;
-  width: 90%;
+  height: 90%;
+  padding: 5px;
+  width: 100%;
 }
 
-.weatherData h4 {
+.weatherData .card-body {
   padding: 5px;
+  display: inline-block;
 }
 
 .weatherInfo {font-size: 20px;}
-.weatherInfo .row {margin: 0px 10px 40px 10px;}
-.weatherInfo .bi {font-size: 60px;}
+.weatherInfo .card .row {margin: 0px 10px 10px 10px;}
+.weatherInfo .bi {font-size: 40px;}
 .weatherInfo .bi-compass {font-size: 25px;}
 .weatherInfo div {text-align: center; padding: 0px;}
 
@@ -156,18 +159,17 @@ main {
 #tempMin {color: blue;}
 
 /* Wind Section */
-.wind-text {margin-bottom: 40px; text-align: center;}
-#wind-speed {font-size: 45px; font-weight: lighter;}
-.bi-compass {text-align: center; margin-top: 20px; color: var(--indigo); text-align: right;}
-#wind-direction {margin-top: 25px; text-align: left;}
+.wind-text {text-align: center;}
+#wind-speed {font-size: 35px; font-weight: lighter;}
+.bi-compass {text-align: center; color: var(--indigo); text-align: right; padding-top: 5px;}
+#wind-direction {text-align: left; padding-top: 8px;}
 
 /* Humidity Section */
-#humidity {text-align: right; font-size: 50px;}
-.bi-droplet {text-align: left; color: var(--cyan);}
+#humidity {text-align: center; font-size: 35px;}
+.bi-droplet {text-align: center; color: var(--cyan);}
 
 /* UV Section */
-#ultraviolet {font-size: 50px; font-weight: bold;}
-/* margin-bottom: 60px; */
+#ultraviolet {font-size: 35px; font-weight: bold;}
 .uv-danger {color: var(--purple)}
 .uv-veryhigh {color: var(--danger)}
 .uv-high {color: var(--orange)}
@@ -182,5 +184,77 @@ main {
 .dailyForecast .card-body img {
   font-size: 130px;
   text-align: center;
+}
+
+/* Media Query Section */
+
+@media screen and (max-width: 1200px) {
+  .today {
+    height: 21%;
+  }
+  .section1, .section2 {
+    padding: 10px;
+  }
+  #current-location {
+    font-size: 20px;
+    margin: 10px 0 0 10px;}
+  #current-time {
+    font-size: 15px;
+    margin-left: 10px;
+  }
+  #current-temp {
+    margin-left: 10px;
+    font-size: 90px;}
+  #current-status {
+    margin-left: 10px;
+    font-size: 20px;}
+  #current-picture {
+    margin-top: 10px;
+    font-size: 100px;
+  }
+  .bi-compass {
+    margin-top: 0px;
+  }
+  #wind-direction {
+    margin-top: 0px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  header {
+    position: relative;
+  }
+  .today {
+    margin: 5px;
+    justify-content: center;
+    padding-left: 10px;
+  }
+  .weatherData {
+    padding-left: 10px;
+  }
+  .section2 {
+    justify-content: center;
+  }
+  header ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  header li {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  header .card, #cities-container {
+    text-align: center;;
+  }
+}
+@media screen and (max-width: 768px) {
+  .today {
+    height: 15%;
+  }
+}
+@media screen and (max-width: 480px) {
+  #forecast div {
+    margin: 0 auto;
+  }
 }
 

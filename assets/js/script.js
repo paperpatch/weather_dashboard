@@ -228,14 +228,14 @@ var displayClimate = function (data) {
   $("#forecast").append($("<h2>").text("5-Day Forecast:"));
   
   // loop over available days in data
-  for (var i = 0; i < data.daily.length-2; i++) {
+  for (var i = 1; i < data.daily.length-2; i++) {
     // convert unix time to usable data.
     let timeUnix = moment.unix(data.daily[i].dt);
     let timeSplit = String(timeUnix._d);
     let timeSlice = timeSplit.split(/\s+/).slice(0, 3).join(" ");
 
     // for each day, add a div under #forecast and another div card-body below it
-    let forecastCard = $("<div>").addClass("col p-3 m-3 card").attr("style", "max-width:15em");
+    let forecastCard = $("<div>").addClass("col-2 col-md-3 col-12 p-3 m-3 card").attr("style", "max-width:15em");
     let cardBodyEl = $("<div>").addClass("card-body");
 
     // new picture icon, temperature, wind and humidity under card body div
