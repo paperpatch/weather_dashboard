@@ -106,29 +106,11 @@ main {
   padding: 20px;
 }
 
-#current-location {
-  font-size: 30px;
-  font-weight: bold;
-  margin: 15px 0 0 15px;
-}
-#current-time {
-  font-size: 18px;
-  margin-left: 15px;
-  color: var(--gray-dark);
-}
-#current-temp {
-  margin-left: 15px;
-  font-size: 100px;
-}
-#current-status {
-  margin-left: 15px;
-  font-size: 25px;
-}
-
-#current-picture {
-  margin-top: 20px;
-  font-size: 125px;
-}
+#current-location {font-size: 30px;font-weight: bold;margin: 15px 0 0 15px;}
+#current-time {font-size: 18px;margin-left: 15px;color: var(--gray-dark);}
+#current-temp {margin-left: 15px;font-size: 100px;}
+#current-status {margin-left: 15px;font-size: 25px;}
+#current-picture {margin-top: 20px;font-size: 125px;}
 
 /* Cards Section */
 
@@ -161,31 +143,36 @@ main {
   padding: 5px;
 }
 
-.weatherInfo .row {
-  margin: 0px 10px 40px 10px;
-}
+.weatherInfo {font-size: 20px;}
+.weatherInfo .row {margin: 0px 10px 40px 10px;}
+.weatherInfo .bi {font-size: 60px;}
+.weatherInfo .bi-compass {font-size: 25px;}
+.weatherInfo div {text-align: center; padding: 0px;}
 
-.weatherInfo .bi {
-  font-size: 60px;
-}
-.weatherInfo .bi-compass {
-  font-size: 20px;
-}
-
-.text-feels, .text-hilo, #wind-speed, #wind-direction {font-weight: bold;}
-.bi-thermometer-high {color: var(--indigo)}
+/* Temperature Section */
+.text-feels, .text-hilo {font-weight: bold; font-size: 18px;}
+.bi-thermometer-high {color: var(--yellow);}
 #tempMax {color: red;}
 #tempMin {color: blue;}
 
-.wind-text {margin-bottom: 40px;}
+/* Wind Section */
+.wind-text {margin-bottom: 40px; text-align: center;}
 #wind-speed {font-size: 45px; font-weight: lighter;}
-.bi-compass {text-align: center; margin-top: 20px; color: var(--indigo)}
-#wind-direction {margin-top: 25px;}
+.bi-compass {text-align: center; margin-top: 20px; color: var(--indigo); text-align: right;}
+#wind-direction {margin-top: 25px; text-align: left;}
 
-#humidity {text-align: center; font-size: 50px;}
-.bi-droplet {color: var(--cyan)}
+/* Humidity Section */
+#humidity {text-align: right; font-size: 50px;}
+.bi-droplet {text-align: left; color: var(--cyan);}
 
-#ultraviolet {text-align: center; font-size: 50px; font-weight: bold;margin-bottom: 60px;}
+/* UV Section */
+#ultraviolet {font-size: 50px; font-weight: bold;}
+/* margin-bottom: 60px; */
+.uv-danger {color: var(--purple)}
+.uv-veryhigh {color: var(--danger)}
+.uv-high {color: var(--orange)}
+.uv-moderate {color: var(--warning)}
+.uv-low {color: var(--green)}
 
 /* 5-Day Forecast */
 
@@ -197,9 +184,3 @@ main {
   text-align: center;
 }
 
-/* UV Section */
-.uv-danger {color: var(--purple)}
-.uv-veryhigh {color: var(--danger)}
-.uv-high {color: var(--orange)}
-.uv-moderate {color: var(--warning)}
-.uv-low {color: var(--green)}
