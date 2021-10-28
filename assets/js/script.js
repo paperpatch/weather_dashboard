@@ -226,7 +226,7 @@ var displayClimate = function (data) {
   // clear previous data
   $("#forecast").empty();
   $("#forecast").append($("<h2>").text("5-Day Forecast:"));
-
+  
   // loop over available days in data
   for (var i = 0; i < data.daily.length-2; i++) {
     // convert unix time to usable data.
@@ -234,27 +234,22 @@ var displayClimate = function (data) {
     let timeSplit = String(timeUnix._d);
     let timeSlice = timeSplit.split(/\s+/).slice(0, 3).join(" ");
 
-    // add new div (column)
-    // for each day, add a column, card and card-body
-    var newDiv = document.createElement("div")
-    newDiv.className = "dailyForecast";
-    $(".dailyForecast").addClass("col p-3 m-3");
-    
-    // new card and header (header is time)
-    let forecastCard = $(".dailyForecast").addClass("card").attr("style", "max-width: 15em");
-    let cardHeaderEl = $("<h5>").addClass("card-title").text(timeSlice);
+    // for each day, add a div under #forecast and another div card-body below it
+    let forecastCard = $("<div>").addClass("col p-3 m-3 card").attr("style", "max-width:15em");
     let cardBodyEl = $("<div>").addClass("card-body");
 
-    // new picture icon, temperature, wind and humidity under card body
+    // new picture icon, temperature, wind and humidity under card body div
+    let forecastDateEl = $("<h5>").addClass("card-title").text(timeSlice);
     let forecastIconEl = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + ".png").addClass("card-title");
     let tempF = (Math.round((data.daily[i].temp.day - 273.15) * 1.80 + 32));
     let forecastTempEl = $("<div>").addClass("card-title").text("Temp: " + tempF + " \u00B0" + "F");
     let forecastWindEl = $("<div>").addClass("card-title").text("Wind: " + data.daily[i].wind_speed + " mps");
     let forecastHumEl = $("<div>").addClass("card-title").text("Humidity: " + data.daily[i].humidity + " %");
 
-    $("#forecast").append(newDiv);
+    // this order is important. any other order messes it up.
+    $("#forecast").append(forecastCard);
     forecastCard.append(cardBodyEl);
-    cardBodyEl.append(cardHeaderEl, forecastIconEl, forecastTempEl, forecastWindEl, forecastHumEl);
+    cardBodyEl.append(forecastDateEl, forecastIconEl, forecastTempEl, forecastWindEl, forecastHumEl);
   }
 }
 
